@@ -1,6 +1,10 @@
 # BoxdStats
 
-**BoxdStats** lets you upload a Letterboxd CSV export and (for now) shows your top-rated directors.  
+**BoxdStats** lets you upload a Letterboxd CSV export and using TMDB's API shows :  
+ 
+ - Your top rated directors
+ - (Future features)
+
 Built with **Next.js 14 / React / TypeScript** as a personal BTS SIO project.
 
 ---
@@ -10,7 +14,6 @@ Built with **Next.js 14 / React / TypeScript** as a personal BTS SIO project.
 | Front end | Back end |
 |-----------|----------|
 | Next 14 (App Router) / React / Tailwind CSS | Node 18 Route Handlers |
-| TypeScript | csv-parse |
 
 ---
 
@@ -25,10 +28,14 @@ cd boxdstats      # or unzip the download then cd boxdstats
 npm install
 
 # 3. TMDB key (required)
-# create .env.local file
-# edit .env.local and paste:
-# TMDB_API_KEY=xxxxxxxxxxxxxxxxxxxx
+Go to https://developer.themoviedb.org/
+Sign in (or create a free account)
+Navigate to Settings -> API and request an API Token
+Copy the key shown
+create .env.local file
+edit .env.local and paste:
+TMDB_API_KEY=<your-api-key>
 
 # 4. Run
 npm run dev
-# open http://localhost:3000
+open http://localhost:3000
