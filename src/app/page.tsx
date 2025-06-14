@@ -63,7 +63,7 @@ const ratingsText = await ratingsFile.async("string");
                 </li>
               ))}
             </ol>
-            <p className="mt-4 text-sm opacity-70">(minimum 3 films counted)</p>
+            <p className="mt-4 text-sm opacity-70">(minimum 4 films counted)</p>
           </>
         )}
       </div>

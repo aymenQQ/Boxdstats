@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   /* 4 – build top-10 list */
   const toplist = Object.entries(byDirector)
-    .filter(([, v]) => v.count >= 3)                    // ≥3 films threshold
+    .filter(([, v]) => v.count >= 4)                    // ≥3 films threshold
     .map(([d, v]) => ({ director: d, avg: v.sum / v.count, films: v.count }))
     .sort((a, b) => b.avg - a.avg)
     .slice(0, 10);
