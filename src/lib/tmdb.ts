@@ -15,7 +15,7 @@ async function movieIds(title: string, year: string): Promise<number[]> {
     `&year=${year}`;
   const r = await limit(() => fetch(url)).then(r => r.json());          
   
-  const exactTitle = r.results.filter((film: any) =>                    /* Erases off the list movies that have a resembling title (Alien, Aliens, Alien³) */
+  const exactTitle = r.results.filter((film: any) =>                    /* Erases off the list movies that have a resembling title (Alien confused with Aliens or Alien³) */
     film.title.trim().toLowerCase() === title.trim().toLowerCase() );
   
   for (const film of exactTitle.slice(0, 1)) {
@@ -51,7 +51,7 @@ async function fetchDirectors(id: number, type: "movie" | "tv"): Promise<string[
   data.credits?.crew?.filter((crewMember: any) => crewMember.job === "Director").map((crewMember: any) => crewMember.name) || []; // Movie
   
   const tvDirectorName: string[] = 
-  data.aggregate_credits?.crew?.filter((crewMember: any) => (crewMember.jobs && crewMember.jobs.includes("Director")) || (crewMember.job === "Director")).map((crewMember: any) => crewMember.name) || []; // TV
+  data.aggregate_credits?.crew?.filter((crewMember: any) => (Array.isArray(crewMember.jobs) && crewMember.jobs.some((j: any) => j.job === "Director")) || crewMember.job === "Director").map((crewMember: any) => crewMember.name) || []; // TV
 
   return Array.from(new Set([...movieDirectorName, ...tvDirectorName]));
 }
@@ -63,20 +63,25 @@ export async function getDirectors(title: string, year: string): Promise<string[
 
   const allDirectorNames: string[] = [];
 
-  /* 1️ try movie IDs */
+  /* Movies */
   for (const id of await movieIds(title, year)) {
     const names = await fetchDirectors(id, "movie");
     allDirectorNames.push(...names);
   }
 
-  /* 2️ TV fallback */
+  /* TV shows */
   const tvUrl =
-    `${BASE}/search/tv?api_key=${key}&query=${encodeURIComponent(title)}`;
+    `${BASE}/search/tv?api_key=${key}` +
+    `&query=${encodeURIComponent(title)}` +
+    `&year=${year}`;
   const tv = await limit(() => fetch(tvUrl)).then(r => r.json());
+  const shows = tv.results?.slice(0, 1) || [];
 
-  if (tv.results?.[0]?.id) {
-    const names = await fetchDirectors(tv.results[0].id, "tv");
-    allDirectorNames.push(...names);
+  for (const show of shows){
+    if(show.id){
+      const names = await fetchDirectors(show.id, "tv");
+      allDirectorNames.push(...names);
+    }
   }
 
   cache.set(cacheKey, allDirectorNames);
