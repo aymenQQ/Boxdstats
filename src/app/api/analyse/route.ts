@@ -9,6 +9,10 @@ export async function POST(req: NextRequest) {
   /* Plain text body */
   const csvText = await req.text();
 
+  /* Read min film counted */
+  const minParam = req.nextUrl.searchParams.get("min");
+  const minFilms = Math.max(1, Math.min(10, Number(minParam) || 4));
+
   /* Parse rows that have BOTH title and rating */
   const rows = Papa.parse<RatingsRow>(csvText, { header: true })
     .data.filter(r => r.Name && r.Rating);
@@ -29,13 +33,13 @@ export async function POST(req: NextRequest) {
         byDirector[d].sum += rating;
         byDirector[d].count += 1;
         });
-      })
-      
+      })    
   );
 
   /* Build top-10 list */
   const toplist = Object.entries(byDirector)
-    .filter(([, v]) => v.count >= 4)                    // ≥4 films threshold
+    .filter(([, v]) => v.count >= 3)
+    .filter(([, v]) => v.count >= minFilms)                    // ≥4 films threshold
     .map(([d, v]) => ({ director: d, avg: v.sum / v.count, films: v.count }))
     .sort((a, b) => b.avg - a.avg)
     .slice(0, 10);
