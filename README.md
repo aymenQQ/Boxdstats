@@ -3,6 +3,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 First, run the development server:
+Built with **Next.js 14 / React / TypeScript** as a personal project.
+
+---
+
+## Tech stack
+
+| Front end | Back end |
+|-----------|----------|
+| Next 14 (App Router) / React / Tailwind CSS | Node 18 Route Handlers |
+
+---
+
+## Setup
 
 ```bash
 npm run dev
