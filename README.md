@@ -5,7 +5,7 @@ A fullstack personal project built with **Next.js 14**, **React**, **TypeScript*
 ### Prerequisites
 
 - Node.js v18.x
-- npm / yarn / pnpm / bun
+- npm
 - Git
 
 ---
@@ -21,7 +21,7 @@ A fullstack personal project built with **Next.js 14**, **React**, **TypeScript*
 ## Setup
 
 ```bash
-# Open Git bash whereven you want
+# Open Git bash wherever you want
 git clone https://github.com/aymenQQ/Boxdstats.git 
 cd Boxdstats
 
