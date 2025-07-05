@@ -33,3 +33,11 @@ npm install
 
 npm run dev
 # Open localhost:3000 on your browser
+```
+
+### Screenshots
+
+![Home Page](screenshots/homepage.png)
+![When export is dropped](screenshots/stats.png)
+
+
