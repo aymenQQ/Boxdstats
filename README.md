@@ -27,9 +27,8 @@ cd Boxdstats
 
 npm install
 
-# Create a file called *.env.local* where you will paste this "NEXT_PUBLIC_API_KEY=your_tmdb_api_key_here"
 # Create an account on https://www.themoviedb.org/
-# Go to Settings, API, get you API key and paste is in your *.env.local* to replace "your_tmdb_api_key_here" and save
+# Go to Settings/API, get you API key and paste is in your *.env.local* to replace "your_tmdb_api_key_here" and save
 
 npm run dev
 # Open localhost:3000 on your browser
