@@ -2,45 +2,39 @@ import { NextRequest, NextResponse } from "next/server";
 import Papa from "papaparse";
 import { getDirectors } from "@/lib/tmdb";
 
-/* Structure of ratings.csv */
 type RatingsRow = { Name: string; Year: string; Rating: string };
+type DirectorStats = { sum: number; count: number; };
 
-export async function POST(req: NextRequest) {
-  /* Plain text body */
-  const csvText = await req.text();
 
-  /* Read min film counted */
-  const minParam = req.nextUrl.searchParams.get("min");
+export async function POST(request: NextRequest) {
+  const csvText = await request.text();
+
+  const minParam = request.nextUrl.searchParams.get("min");
   const minFilms = Math.max(1, Math.min(10, Number(minParam) || 4));
 
-  /* Parse rows that have BOTH title and rating */
-  const rows = Papa.parse<RatingsRow>(csvText, { header: true })
-    .data.filter(r => r.Name && r.Rating);
+  const ratingRows: RatingsRow[] = Papa.parse<RatingsRow>(csvText, { header: true })
+    .data.filter(row => row.Name && row.Rating);
 
-  /* Resolve directors (TMDB) and aggregate */
-  type Bucket = { sum: number; count: number };
-  const byDirector: Record<string, Bucket> = {};
+  const byDirector: Record<string, DirectorStats> = {};
 
   await Promise.all(
-    rows.map(async r => {
-      const director = await getDirectors(r.Name, r.Year);
-      const rating   = parseFloat(r.Rating);
+    ratingRows.map(async (row) => {
+      const director = await getDirectors(row.Name, row.Year);
+      const rating   = parseFloat(row.Rating);
 
-      director.forEach((d) => {
-        if (!byDirector[d]) {
-          byDirector[d] = { sum: 0, count: 0};
+      director.forEach((directorName) => {
+        if (!byDirector[directorName]) {
+          byDirector[directorName] = { sum: 0, count: 0};
         }
-        byDirector[d].sum += rating;
-        byDirector[d].count += 1;
+        byDirector[directorName].sum += rating;
+        byDirector[directorName].count += 1;
         });
       })    
   );
 
-  /* Build top-10 list */
   const toplist = Object.entries(byDirector)
-    .filter(([, v]) => v.count >= 3)
-    .filter(([, v]) => v.count >= minFilms)                    // ≥4 films threshold
-    .map(([d, v]) => ({ director: d, avg: v.sum / v.count, films: v.count }))
+    .filter(([, stats]) => stats.count >= minFilms)
+    .map(([director, stats]) => ({ director, avg: stats.sum / stats.count, films: stats.count }))
     .sort((a, b) => b.avg - a.avg)
     .slice(0, 10);
 
