@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.2.0",
+    "@react-three/postprocessing": "^3.0.4",
     "jszip": "^3.10.1",
-    "next": "15.3.2",
+    "next": "^15.3.5",
     "p-limit": "^6.2.0",
     "papaparse": "^5.5.2",
+    "postprocessing": "^6.37.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-dropzone": "^14.3.8"
+    "react-dropzone": "^14.3.8",
+    "three": "^0.178.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
