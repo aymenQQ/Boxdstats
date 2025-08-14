@@ -315,6 +315,14 @@ export default function Dither({
   mouseRadius = 1,
   style,
 }: DitherProps) {
+  
+  const [dpr, setDpr] = useState(1);
+  useEffect(() => {
+  if (typeof window !== "undefined") {
+    setDpr(Math.min(2, window.devicePixelRatio || 1));
+    }
+    }, []);
+    
   return (
     <div
       style={{
@@ -332,7 +340,7 @@ export default function Dither({
     <Canvas
       className="w-full h-full relative"
       camera={{ position: [0, 0, 6] }}
-      dpr={window.devicePixelRatio}
+      dpr={dpr}
       gl={{ antialias: true, preserveDrawingBuffer: true }}
     >
       <DitheredWaves

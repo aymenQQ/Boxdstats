@@ -72,7 +72,7 @@ export default function Home() {
       {mode === "upload" && (
         <div
           {...getRootProps()}
-          className={`border-2 border-2 rounded-xl p-12 text-center cursor-pointer
+          className={`border-2 rounded-xl p-12 text-center cursor-pointer
                       ${isDragActive ? "bg-neutral-800" : "bg-neutral-900"}`}
         >
           <input {...getInputProps()} />
