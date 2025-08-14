@@ -32,7 +32,7 @@ export default function Home() {
   useEffect(() => {
     if (mode === "result") analyse();
     }, 
-    [minFilms]);
+    [mode, analyse]);
 
   const onDrop = useCallback(
     async (files: File[]) => {
@@ -42,7 +42,7 @@ export default function Home() {
     const ratings = zip.file("ratings.csv");
     if (!ratings) { setMessage("ZIP must contain ratings.csv"); return; }
     setFileText(await ratings.async("string"));
-  }, [analyse]);
+  }, []);
 
   useEffect(() => {
     if (fileText != "" && mode === "upload") analyse();

@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import pLimit from "p-limit";
 
 const BASE_TMDB_LINK = "https://api.themoviedb.org/3";
