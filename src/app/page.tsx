@@ -2,6 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import JSZip from "jszip";
 import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import tutorialgif from "./gif/tutorial.gif";
+
 
 type Mode = "upload" | "result";
 
@@ -69,16 +72,34 @@ export default function Home() {
         </button>
       )}
 
-      {mode === "upload" && (
-        <div
-          {...getRootProps()}
-          className={`border-2 rounded-xl p-12 text-center cursor-pointer
-                      ${isDragActive ? "bg-neutral-800" : "bg-neutral-900"}`}
-        >
-          <input {...getInputProps()} />
-          {loading ? <p>Analysing…</p> : <p>{message}</p>}
-        </div>
-      )}
+{mode === "upload" && (
+  <div className="relative w-full min-h-[70vh] flex items-center justify-center">
+    
+    <Image
+      src={tutorialgif}
+      alt="How to export your Letterboxd data"
+      priority
+      className="absolute left-1/2 -translate-x-1/2"
+      style={{
+        bottom: "calc(70% + 20px)",
+        width: "min(500px, 82vw)",
+        height: "auto",
+        borderRadius: "0.5rem",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.45)",
+      }}
+    />
+    
+    <div
+      {...getRootProps()}
+      className={`border-2 rounded-xl p-12 text-center cursor-pointer ${
+        isDragActive ? "bg-neutral-800" : "bg-neutral-900"
+      }`}
+    >
+      <input {...getInputProps()} />
+      {loading ? <p>Analysing…</p> : <p>{message}</p>}
+    </div>
+  </div>
+)}
 
       {mode === "result" && (
         <div className="relative border-2 border-solid rounded-xl bg-neutral-900 p-8 max-w-lg w-full">
