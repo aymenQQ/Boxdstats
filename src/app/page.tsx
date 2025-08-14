@@ -73,19 +73,19 @@ export default function Home() {
       )}
 
 {mode === "upload" && (
-  <div className="relative upload-wrapper justify-center">
+  <div className="relative flex flex-col items-center w-full max-w-2xl">
     
     <Image
       src="/gif/tutorial.gif"
       width={500} height={281}
       alt="How to export your Letterboxd data"
       priority
-      className="gif-floating pointer-events-none rounded-lg shadow-lg"
+      className="w-full max-w-lg md:max-w-xl lg:max-w-2xl h-auto rounded-lg shadow-lg mb-6 md:mb-8"
     />
     
     <div
       {...getRootProps()}
-      className={`border-2 rounded-xl p-12 text-center cursor-pointer ${
+      className={`border-2 rounded-xl p-8 md:p-12 text-center cursor-pointer w-full ${
         isDragActive ? "bg-neutral-800" : "bg-neutral-900"
       }`}
     >
@@ -96,7 +96,7 @@ export default function Home() {
 )}
 
       {mode === "result" && (
-        <div className="relative border-2 border-solid rounded-xl bg-neutral-900 p-8 max-w-lg w-full">
+        <div className="relative border-2 border-solid rounded-xl bg-neutral-900 p-6 md:p-8 w-full max-w-md">
         
           <label className="flex items-center gap-2 mb-4 font-medium">
             Minimum films counted&nbsp;
