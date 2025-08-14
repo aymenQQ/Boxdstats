@@ -73,23 +73,14 @@ export default function Home() {
       )}
 
 {mode === "upload" && (
-  <div className="relative w-full min-h-[70vh] flex items-center justify-center">
+  <div className="relative upload-wrapper justify-center">
     
     <Image
       src="/gif/tutorial.gif"
       width={500} height={281}
       alt="How to export your Letterboxd data"
       priority
-      className="tutorial-img rounded-lg shadow-lg"
-      style={{
-        position: "absolute",
-        bottom: "67%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "min(560px, 82vw)",
-        height: "auto",
-        zIndex: 10,
-      }}
+      className="gif-floating pointer-events-none rounded-lg shadow-lg"
     />
     
     <div
