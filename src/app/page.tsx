@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import JSZip from "jszip";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import tutorialgif from "./gif/tutorial.gif";
+//import tutorialgif from "./gif/tutorial.gif";
 
 
 type Mode = "upload" | "result";
@@ -76,16 +76,19 @@ export default function Home() {
   <div className="relative w-full min-h-[70vh] flex items-center justify-center">
     
     <Image
-      src={tutorialgif}
+      src="/gif/tutorial.gif"
+      width={500} height={281}
       alt="How to export your Letterboxd data"
       priority
-      className="absolute left-1/2 -translate-x-1/2"
+      className="tutorial-img rounded-lg shadow-lg"
       style={{
-        bottom: "calc(70% + 20px)",
-        width: "min(500px, 82vw)",
+        position: "absolute",
+        bottom: "67%",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "min(560px, 82vw)",
         height: "auto",
-        borderRadius: "0.5rem",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.45)",
+        zIndex: 10,
       }}
     />
     
