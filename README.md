@@ -26,6 +26,7 @@ git clone https://github.com/aymenQQ/Boxdstats.git
 cd Boxdstats
 
 npm install
+npm install three postprocessing @react-three/fiber @react-three/postprocessing
 
 # Create an account on https://www.themoviedb.org/
 # Go to Settings/API, get you API key and paste is in your *.env.local* to replace "your_tmdb_api_key_here" and save
